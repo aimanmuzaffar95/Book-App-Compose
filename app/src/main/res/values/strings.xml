@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Book Reading Compose</string>
     <string name="quote">What consumes your mind, controls your life</string>
+    <string name="home">Home</string>
+    <string name="browse">Browse</string>
+    <string name="favourites">Favourites</string>
+    <string name="cart">Cart</string>
 </resources>

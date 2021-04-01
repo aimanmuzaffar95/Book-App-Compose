@@ -15,6 +15,6 @@
 
     <color name="text_color_pink">#E7CDEC</color>
     <color name="background_dark">#182138</color>
-    <color name="search_bar_background">#343d54</color>
+    <color name="background_light">#343d54</color>
 
 </resources>

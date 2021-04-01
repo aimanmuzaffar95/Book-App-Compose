@@ -1,4 +1,4 @@
-package com.aiman.bookreadingcompose.ui
+package com.aiman.bookreadingcompose.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,10 +26,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aiman.bookreadingcompose.R
-import com.aiman.bookreadingcompose.utils.CustomFont.montSerratFamily
-import com.aiman.bookreadingcompose.utils.CustomFont.robotoCondenseFamily
+import com.aiman.bookreadingcompose.theme.CustomFont.robotoCondenseFamily
 
-class MainActivity : AppCompatActivity() {
+class SampleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -1,4 +1,4 @@
-package com.aiman.bookreadingcompose.utils
+package com.aiman.bookreadingcompose.theme
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily

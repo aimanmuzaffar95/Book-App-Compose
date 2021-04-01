@@ -1,12 +1,10 @@
-package com.aiman.bookreadingcompose.ui
+package com.aiman.bookreadingcompose.ui.tabs
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,41 +15,33 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aiman.bookreadingcompose.R
 import com.aiman.bookreadingcompose.data.BooksRepository
 import com.aiman.bookreadingcompose.models.MyBook
-import com.aiman.bookreadingcompose.utils.CustomFont
+import com.aiman.bookreadingcompose.theme.CustomFont
 
-class HomeActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+object Home {
 
-        setContent {
-            MaterialTheme {
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight()
-                        .background(colorResource(id = R.color.background_dark))
-                ) {
-
-                    Column(
-                        modifier = Modifier.padding(
-                            top = 8.dp,
-                            bottom = 8.dp,
-                            start = 12.dp,
-                            end = 12.dp
-                        ),
-                    ) {
-                        Toolbar()
-                        MyBooks()
-                    }
-
-                }
+    @Composable
+    fun HomeTab() {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(colorResource(id = R.color.background_dark))
+        ) {
+            Column(
+                modifier = Modifier.padding(
+                    top = 8.dp,
+                    bottom = 8.dp,
+                    start = 12.dp,
+                    end = 12.dp
+                ),
+            ) {
+                Toolbar()
+                MyBooks()
             }
         }
     }
@@ -97,7 +87,7 @@ class HomeActivity : AppCompatActivity() {
                     focusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
-                    backgroundColor = colorResource(id = R.color.search_bar_background)
+                    backgroundColor = colorResource(id = R.color.background_light)
                 ),
             )
 
@@ -135,7 +125,8 @@ class HomeActivity : AppCompatActivity() {
         Column(
             modifier = Modifier
                 .wrapContentHeight()
-                .width(140.dp)) {
+                .width(140.dp)
+                .padding(8.dp)) {
             Image(
                 painter = painterResource(id = book.bookImage),
                 null,
@@ -166,5 +157,4 @@ class HomeActivity : AppCompatActivity() {
             )
         }
     }
-
 }
