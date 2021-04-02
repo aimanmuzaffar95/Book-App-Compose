@@ -14,7 +14,11 @@
     <color name="gradient_pink">#643CAA</color>
 
     <color name="text_color_pink">#E7CDEC</color>
-    <color name="background_dark">#182138</color>
-    <color name="background_light">#343d54</color>
+    <color name="background_dark">#131F33</color>
+    <color name="background_light">#323A4C</color>
+    <color name="bottom_bar_color">#030C1F</color>
+    <color name="progress_color">#F6A625</color>
+    <color name="icon_highlight">#64C7A1</color>
+    <color name="icon_color">#C3C6D1</color>
 
 </resources>

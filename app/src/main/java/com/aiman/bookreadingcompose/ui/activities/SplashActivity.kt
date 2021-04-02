@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
 
         MainScope().launch {
             delay(0)
-            startActivity(Intent(this@SplashActivity, SampleActivity::class.java))
+            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish()
         }
 

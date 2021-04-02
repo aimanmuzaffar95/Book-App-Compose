@@ -1,10 +1,9 @@
 package com.aiman.bookreadingcompose.ui.tabs
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,10 +14,12 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aiman.bookreadingcompose.R
 import com.aiman.bookreadingcompose.data.BooksRepository
+import com.aiman.bookreadingcompose.models.Book
 import com.aiman.bookreadingcompose.models.MyBook
 import com.aiman.bookreadingcompose.theme.CustomFont
 
@@ -26,23 +27,53 @@ object Home {
 
     @Composable
     fun HomeTab() {
-        Box(
+
+        val bestSellerBooks = remember { BooksRepository.getBestSellers() }
+
+        LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(colorResource(id = R.color.background_dark))
+                .background(colorResource(id = R.color.background_dark)),
         ) {
-            Column(
-                modifier = Modifier.padding(
-                    top = 8.dp,
-                    bottom = 8.dp,
-                    start = 12.dp,
-                    end = 12.dp
-                ),
-            ) {
+
+            item {
                 Toolbar()
-                MyBooks()
             }
+
+            item {
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(4.dp)) {
+                    MyBooks()
+                }
+            }
+
+            item {
+                Text(
+                    "Best Sellers",
+                    color = Color.White,
+                    fontSize = 28.sp,
+                    fontFamily = CustomFont.robotoCondenseFamily,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+
+            items(bestSellerBooks.windowed(2, 2, true)) { subList ->
+                Row(Modifier.fillMaxWidth()) {
+                    subList.forEach { book ->
+                        BestSellerItem(book = book)
+                    }
+                }
+            }
+
+            // Avoid over-lapping with bottom navigation bar
+            item { 
+                Spacer(modifier = Modifier.height(50.dp))
+            }
+
         }
     }
 
@@ -56,6 +87,7 @@ object Home {
             fontSize = 28.sp,
             fontFamily = CustomFont.robotoCondenseFamily,
             fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(start = 4.dp),
         )
         Spacer(modifier = Modifier.height(12.dp))
         MyBooksList(bookList = BooksRepository.getMyBooks())
@@ -65,7 +97,8 @@ object Home {
     fun Toolbar() {
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(vertical = 8.dp, horizontal = 6.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -73,7 +106,8 @@ object Home {
             Icon(
                 painter = painterResource(id = R.drawable.ic_menu),
                 contentDescription = null,
-                tint = Color.White
+                tint = Color.White,
+                modifier = Modifier.clickable {}
             )
 
             Spacer(modifier = Modifier.width(8.dp))
@@ -96,15 +130,19 @@ object Home {
             Icon(
                 painter = painterResource(id = R.drawable.ic_scan),
                 contentDescription = null,
-                tint = Color.White
+                tint = Color.White,
+                modifier = Modifier.clickable {}
             )
-
+            
             Spacer(modifier = Modifier.width(8.dp))
 
             Icon(
                 painter = painterResource(id = R.drawable.ic_notification_bell),
                 contentDescription = null,
-                tint = Color.White
+                tint = Color.White,
+                modifier = Modifier
+                    .padding(vertical = 8.dp, horizontal = 6.dp)
+                    .clickable {}
             )
         }
 
@@ -114,24 +152,24 @@ object Home {
     fun MyBooksList(bookList: ArrayList<MyBook>) {
         LazyRow {
             items(bookList) { book ->
-                MyBookColumn(book = book)
+                MyBookItem(book = book)
             }
         }
     }
-
-
+    
     @Composable
-    fun MyBookColumn(book: MyBook) {
+    fun MyBookItem(book: MyBook) {
         Column(
             modifier = Modifier
                 .wrapContentHeight()
                 .width(140.dp)
-                .padding(8.dp)) {
+                .padding(8.dp)
+                .clickable {} ) {
             Image(
                 painter = painterResource(id = book.bookImage),
                 null,
                 modifier = Modifier
-                    .height(200.dp)
+                    .height(180.dp)
                     .width(140.dp),
                 contentScale = ContentScale.FillHeight
             )
@@ -155,6 +193,90 @@ object Home {
                 fontStyle = FontStyle.Italic,
                 maxLines = 2,
             )
+            Spacer(modifier = Modifier.height(4.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                LinearProgressIndicator(
+                    progress = book.bookProgress,
+                    modifier = Modifier.width(5.dp),
+                    color = colorResource(id = R.color.progress_color),
+                    backgroundColor = Color.White,
+                )
+                Text(
+                    "${(book.bookProgress * 5).toInt()}%",
+                    color = Color.White,
+                    fontSize = 13.sp,
+                    fontFamily = CustomFont.robotoCondenseFamily,
+                    fontWeight = FontWeight.Light
+                )
+            }
+
+        }
+    }
+
+    @Composable
+    fun BestSellers() {
+        Spacer(modifier = Modifier.height(22.dp))
+        Text(
+            "Best Sellers",
+            color = Color.White,
+            fontSize = 28.sp,
+            fontFamily = CustomFont.robotoCondenseFamily,
+            fontWeight = FontWeight.SemiBold,
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        BestSellersGrid(books = BooksRepository.getBestSellers())
+    }
+
+    @Composable
+    fun BestSellersGrid(books: ArrayList<Book>) {
+
+    }
+
+    @Composable
+    fun BestSellerItem(book: Book) {
+        Row(
+            modifier = Modifier
+                .wrapContentHeight()
+                .wrapContentWidth()
+                .padding(8.dp)
+                .clickable {} ) {
+            Image(
+                painter = painterResource(id = book.bookImage),
+                null,
+                modifier = Modifier
+                    .height(110.dp)
+                    .width(85.dp),
+                contentScale = ContentScale.FillHeight
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Column {
+                Text(
+                    book.bookName,
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontFamily = CustomFont.robotoCondenseFamily,
+                    fontWeight = FontWeight.SemiBold,
+                    fontStyle = FontStyle.Italic,
+                    maxLines = 3,
+                    modifier = Modifier.width(100.dp)
+                )
+
+                Text(
+                    book.authorName,
+                    color = Color.Gray,
+                    fontSize = 12.sp,
+                    fontFamily = CustomFont.robotoCondenseFamily,
+                    fontWeight = FontWeight.Normal,
+                    fontStyle = FontStyle.Italic,
+                    maxLines = 2,
+                )
+            }
+
         }
     }
 }

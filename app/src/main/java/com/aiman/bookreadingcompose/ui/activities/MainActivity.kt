@@ -67,7 +67,9 @@ class MainActivity : AppCompatActivity() {
                             navController.navigate(screen.route)
                         }
                     },
-                    modifier = Modifier.background(color = colorResource(id = R.color.background_light))
+                    modifier = Modifier.background(color = colorResource(id = R.color.bottom_bar_color)),
+                    selectedContentColor = colorResource(id = R.color.icon_highlight),
+                    unselectedContentColor = colorResource(id = R.color.icon_color)
                 )
             }
         }
