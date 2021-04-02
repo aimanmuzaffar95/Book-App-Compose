@@ -6,7 +6,7 @@ This is a demo app built in Jetpack Compose (beta)
 
 # 📃 License
 
-    Copyright 2018 Wajahat Karim
+    Copyright 2018 Aiman Muzafar
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
