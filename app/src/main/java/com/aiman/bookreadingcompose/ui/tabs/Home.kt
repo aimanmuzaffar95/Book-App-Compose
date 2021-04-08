@@ -4,6 +4,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,7 +15,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aiman.bookreadingcompose.R
@@ -61,8 +62,18 @@ object Home {
                 Spacer(modifier = Modifier.height(12.dp))
             }
 
+
+//            items(bestSellerBooks) { book ->
+//                Column(Modifier.fillMaxWidth()) {
+//                    BestSellerItem(book = book)
+//                }
+//            }
+
             items(bestSellerBooks.windowed(2, 2, true)) { subList ->
-                Row(Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
                     subList.forEach { book ->
                         BestSellerItem(book = book)
                     }
@@ -107,7 +118,9 @@ object Home {
                 painter = painterResource(id = R.drawable.ic_menu),
                 contentDescription = null,
                 tint = Color.White,
-                modifier = Modifier.clickable {}
+                modifier = Modifier
+                    .size(25.dp)
+                    .clickable {}
             )
 
             Spacer(modifier = Modifier.width(8.dp))
@@ -116,13 +129,14 @@ object Home {
             TextField(
                 value = searchValue,
                 onValueChange = { searchValue = it },
-                modifier = Modifier.width(230.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    backgroundColor = colorResource(id = R.color.background_light)
-                ),
+                modifier = Modifier
+                    .width(230.dp)
+                    .height(45.dp)
+                    .background(
+                        color = colorResource(id = R.color.background_light),
+                        shape = CircleShape
+                    ),
+                trailingIcon = { Icon(painter = painterResource(id = R.drawable.ic_search), null, tint = Color.White) }
             )
 
             Spacer(modifier = Modifier.width(8.dp))
@@ -131,7 +145,10 @@ object Home {
                 painter = painterResource(id = R.drawable.ic_scan),
                 contentDescription = null,
                 tint = Color.White,
-                modifier = Modifier.clickable {}
+                modifier = Modifier
+                    .width(25.dp)
+                    .height(25.dp)
+                    .clickable {}
             )
             
             Spacer(modifier = Modifier.width(8.dp))
@@ -141,6 +158,7 @@ object Home {
                 contentDescription = null,
                 tint = Color.White,
                 modifier = Modifier
+                    .size(44.dp)
                     .padding(vertical = 8.dp, horizontal = 6.dp)
                     .clickable {}
             )
@@ -238,44 +256,48 @@ object Home {
 
     @Composable
     fun BestSellerItem(book: Book) {
-        Row(
+        Column(
             modifier = Modifier
                 .wrapContentHeight()
-                .wrapContentWidth()
+                .wrapContentHeight()
                 .padding(8.dp)
-                .clickable {} ) {
-            Image(
-                painter = painterResource(id = book.bookImage),
-                null,
-                modifier = Modifier
-                    .height(110.dp)
-                    .width(85.dp),
-                contentScale = ContentScale.FillHeight
-            )
-            Spacer(modifier = Modifier.height(4.dp))
+                .clickable {},
+            horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
-            Column {
+                Image(
+                    painter = painterResource(id = book.bookImage),
+                    null,
+                    modifier = Modifier
+                        .height(200.dp)
+                        .width(170.dp),
+                    contentScale = ContentScale.Inside
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+
                 Text(
                     book.bookName,
                     color = Color.White,
-                    fontSize = 14.sp,
+                    fontSize = 18.sp,
                     fontFamily = CustomFont.robotoCondenseFamily,
                     fontWeight = FontWeight.SemiBold,
                     fontStyle = FontStyle.Italic,
                     maxLines = 3,
-                    modifier = Modifier.width(100.dp)
+                    textAlign = TextAlign.Center
                 )
 
                 Text(
                     book.authorName,
                     color = Color.Gray,
-                    fontSize = 12.sp,
+                    fontSize = 16.sp,
                     fontFamily = CustomFont.robotoCondenseFamily,
                     fontWeight = FontWeight.Normal,
                     fontStyle = FontStyle.Italic,
                     maxLines = 2,
                 )
-            }
+
+
+
 
         }
     }
