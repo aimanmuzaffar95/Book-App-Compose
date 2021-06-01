@@ -20,5 +20,6 @@
     <color name="progress_color">#F6A625</color>
     <color name="icon_highlight">#64C7A1</color>
     <color name="icon_color">#C3C6D1</color>
+    <color name="book_detail_background_color">#EAC58F</color>
 
 </resources>

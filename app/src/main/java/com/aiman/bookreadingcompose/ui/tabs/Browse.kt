@@ -99,7 +99,7 @@ object Browse {
                 Row(
                     Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     subList.forEach { genre ->
                         BookGenreItem(genre)
@@ -119,7 +119,7 @@ object Browse {
     fun BookGenreItem(genre: BookGenre) {
         Box(modifier = Modifier
             .height(230.dp)
-            .width(165.dp)
+            .width(145.dp)
             .clickable {}
             .background(
                 color = genre.backgroundColor,

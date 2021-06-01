@@ -5,4 +5,9 @@
     <string name="browse">Browse</string>
     <string name="favourites">Favourites</string>
     <string name="cart">Cart</string>
+
+    <string name="rating">Rating</string>
+    <string name="pages">Pages</string>
+    <string name="language">Language</string>
+    <string name="audio">Audio</string>
 </resources>
