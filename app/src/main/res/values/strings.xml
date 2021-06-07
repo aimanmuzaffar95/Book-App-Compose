@@ -10,4 +10,6 @@
     <string name="pages">Pages</string>
     <string name="language">Language</string>
     <string name="audio">Audio</string>
+    <string name="read_book">Read Book</string>
+    <string name="listen_book">Listen Book</string>
 </resources>
