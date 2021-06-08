@@ -4,15 +4,14 @@ import androidx.compose.ui.graphics.Color
 import com.aiman.bookreadingcompose.R
 import com.aiman.bookreadingcompose.models.Book
 import com.aiman.bookreadingcompose.models.BookGenre
-import com.aiman.bookreadingcompose.models.MyBook
 
 class BooksRepository {
     companion object {
-        fun getMyBooks(): ArrayList<MyBook> {
+        fun getMyBooks(): ArrayList<Book> {
             return arrayListOf(
-                MyBook("No place like here", "Christina June", R.drawable.book_no_place_like_here, 10f),
-                MyBook("To Kill a Mockingbird", "Harper Lee", R.drawable.book_to_kill_a_mocking_bird, 5f),
-                MyBook("The Book Thief", "Markus Zusak", R.drawable.book_the_book_theif, 16f),
+                Book("No place like here", "Christina June", R.drawable.book_no_place_like_here, 10f),
+                Book("To Kill a Mockingbird", "Harper Lee", R.drawable.book_to_kill_a_mocking_bird, 5f),
+                Book("The Book Thief", "Markus Zusak", R.drawable.book_the_book_theif, 16f),
             )
         }
 

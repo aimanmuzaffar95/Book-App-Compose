@@ -13,11 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import com.aiman.bookreadingcompose.R
-import com.aiman.bookreadingcompose.ui.tabs.BottomNavigationScreens
-import com.aiman.bookreadingcompose.ui.tabs.Browse.BrowseTab
-import com.aiman.bookreadingcompose.ui.tabs.Cart.CartTab
-import com.aiman.bookreadingcompose.ui.tabs.Favourites.FavouritesTab
-import com.aiman.bookreadingcompose.ui.tabs.Home.HomeTab
+import com.aiman.bookreadingcompose.ui.tabs.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         NavHost(navController, startDestination = BottomNavigationScreens.Home.route) {
             composable(BottomNavigationScreens.Home.route) {
-                HomeTab()
+                HomeTab(this@MainActivity)
             }
             composable(BottomNavigationScreens.Browse.route) {
                 BrowseTab()

@@ -10,25 +10,23 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.aiman.bookreadingcompose.R
 
-object Cart {
-    @Composable
-    fun CartTab() {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(colorResource(id = R.color.background_dark))
+@Composable
+fun CartTab() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(colorResource(id = R.color.background_dark))
+    ) {
+        Column(
+            modifier = Modifier.padding(
+                top = 8.dp,
+                bottom = 8.dp,
+                start = 12.dp,
+                end = 12.dp
+            ),
         ) {
-            Column(
-                modifier = Modifier.padding(
-                    top = 8.dp,
-                    bottom = 8.dp,
-                    start = 12.dp,
-                    end = 12.dp
-                ),
-            ) {
-                Text("Cart Tab", color = Color.White)
-            }
+            Text("Cart Tab", color = Color.White)
         }
     }
 }

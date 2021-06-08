@@ -3,13 +3,10 @@ package com.aiman.bookreadingcompose.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Space
 import androidx.activity.compose.setContent
-import androidx.appcompat.widget.ButtonBarLayout
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -17,24 +14,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.font.FontWeight.Companion.Bold
-import androidx.compose.ui.text.font.FontWeight.Companion.Light
 import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.aiman.bookreadingcompose.R
-import com.aiman.bookreadingcompose.theme.CustomFont
-import com.aiman.bookreadingcompose.theme.CustomFont.robotoCondenseFamily
+import com.aiman.bookreadingcompose.theme.robotoCondenseFamily
 
 class BookDetailActivity : AppCompatActivity() {
 
@@ -89,7 +80,7 @@ class BookDetailActivity : AppCompatActivity() {
                 modifier = Modifier
                     .size(iconSize)
                     .padding(vertical = 8.dp, horizontal = 6.dp)
-                    .clickable {}
+                    .clickable { onBackPressed() }
             )
 
             Icon(

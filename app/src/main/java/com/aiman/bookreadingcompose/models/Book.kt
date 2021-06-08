@@ -3,5 +3,6 @@ package com.aiman.bookreadingcompose.models
 data class Book(
     val bookName: String,
     val authorName: String,
-    val bookImage: Int
+    val bookImage: Int,
+    val bookProgress: Float = 0f
 )
