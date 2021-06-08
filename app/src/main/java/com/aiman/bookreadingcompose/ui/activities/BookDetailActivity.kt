@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,14 +26,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.aiman.bookreadingcompose.R
+import com.aiman.bookreadingcompose.models.Book
 import com.aiman.bookreadingcompose.theme.robotoCondenseFamily
+import com.aiman.bookreadingcompose.ui.tabs.key_book
+import com.aiman.bookreadingcompose.utils.getComposeColor
 
 class BookDetailActivity : AppCompatActivity() {
+
+    lateinit var book: Book
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        changeStatusBarColor(R.color.book_detail_background_color)
+        book = intent.getParcelableExtra(key_book)!!
+        changeStatusBarColor(book.backgroundColor)
 
         setContent {
             MaterialTheme {
@@ -46,17 +53,17 @@ class BookDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeStatusBarColor(color: Int) {
+    private fun changeStatusBarColor(color: String) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = ContextCompat.getColor(this, color)
+        window.statusBarColor =  android.graphics.Color.parseColor(color)
     }
 
     @Composable
     fun TopSection () {
         Column(modifier = Modifier
             .fillMaxWidth()
-            .background(color = colorResource(id = R.color.book_detail_background_color)),
+            .background(color = getComposeColor(book.backgroundColor)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -65,7 +72,7 @@ class BookDetailActivity : AppCompatActivity() {
             Spacer(modifier = Modifier.height(18.dp))
         }
     }
-    
+
     @Composable 
     fun TopBar() {
         val iconSize = 50.dp
@@ -101,7 +108,7 @@ class BookDetailActivity : AppCompatActivity() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
             Image(
-                painter = painterResource(id = R.drawable.book_to_kill_a_mocking_bird),
+                painter = painterResource(id = book.bookImage),
                 contentDescription = null,
                 modifier = Modifier
                     .height(280.dp)
@@ -110,16 +117,16 @@ class BookDetailActivity : AppCompatActivity() {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "How to Kill a Mocking Bird",
+                text = book.bookName,
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 22.sp,
                 fontFamily = robotoCondenseFamily)
 
             Text(
-                text = "By Harper Lee",
+                text = "By ${book.authorName}",
                 color = Color.White,
-                fontWeight = FontWeight.Normal,
+                fontWeight = Normal,
                 fontSize = 18.sp,
                 fontFamily = robotoCondenseFamily)
 
@@ -262,14 +269,14 @@ class BookDetailActivity : AppCompatActivity() {
 
         Column(modifier = Modifier.padding(12.dp)) {
             Text(
-                "What is it about?",
+                getString(R.string.what_is_it_about),
                 color = Color.Black,
                 fontSize = headingFontSize,
                 fontFamily = robotoCondenseFamily,
                 fontWeight = SemiBold,
             )
             Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus neque et libero tempus efficitur. Cras quam leo, egestas eu elit sit amet, elementum ultricies.",
+                book.aboutBook,
                 color = Color.DarkGray,
                 fontSize = contentFontSize,
                 fontFamily = robotoCondenseFamily,
@@ -277,7 +284,7 @@ class BookDetailActivity : AppCompatActivity() {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                "Who is it for?",
+                getString(R.string.who_is_it_for),
                 color = Color.Black,
                 fontSize = headingFontSize,
                 fontFamily = robotoCondenseFamily,

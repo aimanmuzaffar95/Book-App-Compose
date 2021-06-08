@@ -26,6 +26,8 @@ import com.aiman.bookreadingcompose.models.Book
 import com.aiman.bookreadingcompose.theme.robotoCondenseFamily
 import com.aiman.bookreadingcompose.ui.activities.BookDetailActivity
 
+const val key_book = "key_book"
+
 @Composable
 fun HomeTab(context: Context) {
 
@@ -54,7 +56,7 @@ fun HomeTab(context: Context) {
 
         item {
             Text(
-                "Best Sellers",
+                context.getString(R.string.best_sellers),
                 color = Color.White,
                 fontSize = 28.sp,
                 fontFamily = robotoCondenseFamily,
@@ -70,7 +72,7 @@ fun HomeTab(context: Context) {
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 subList.forEach { book ->
-                    BestSellerItem(book = book)
+                    BestSellerItem(book = book, context = context)
                 }
             }
         }
@@ -88,7 +90,7 @@ fun MyBooks(context: Context) {
 
     Spacer(modifier = Modifier.height(22.dp))
     Text(
-        "My Books",
+        context.getString(R.string.my_books),
         color = Color.White,
         fontSize = 28.sp,
         fontFamily = robotoCondenseFamily,
@@ -183,7 +185,8 @@ fun MyBookItem(book: Book, context: Context) {
             .wrapContentHeight()
             .width(140.dp)
             .padding(8.dp)
-            .clickable { context.startActivity(Intent(context, BookDetailActivity::class.java)) }) {
+            .clickable { openBookDetailsActivity(context, book) }
+    ) {
         Image(
             painter = painterResource(id = book.bookImage),
             null,
@@ -237,32 +240,13 @@ fun MyBookItem(book: Book, context: Context) {
 }
 
 @Composable
-fun BestSellers() {
-    Spacer(modifier = Modifier.height(22.dp))
-    Text(
-        "Best Sellers",
-        color = Color.White,
-        fontSize = 28.sp,
-        fontFamily = robotoCondenseFamily,
-        fontWeight = FontWeight.SemiBold,
-    )
-    Spacer(modifier = Modifier.height(12.dp))
-    BestSellersGrid(books = BooksRepository.getBestSellers())
-}
-
-@Composable
-fun BestSellersGrid(books: ArrayList<Book>) {
-
-}
-
-@Composable
-fun BestSellerItem(book: Book) {
+fun BestSellerItem(book: Book, context: Context) {
     Column(
         modifier = Modifier
             .wrapContentHeight()
             .wrapContentHeight()
             .padding(8.dp)
-            .clickable {},
+            .clickable { openBookDetailsActivity(context, book) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -301,5 +285,8 @@ fun BestSellerItem(book: Book) {
 }
 
 fun openBookDetailsActivity(context: Context, book: Book) {
-
+    Intent(context, BookDetailActivity::class.java).run {
+        this.putExtra(key_book, book)
+        context.startActivity(this)
+    }
 }

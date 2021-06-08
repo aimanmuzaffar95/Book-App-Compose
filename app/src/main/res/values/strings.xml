@@ -12,4 +12,8 @@
     <string name="audio">Audio</string>
     <string name="read_book">Read Book</string>
     <string name="listen_book">Listen Book</string>
+    <string name="best_sellers">Best Sellers</string>
+    <string name="my_books">My Books</string>
+    <string name="what_is_it_about">What is it about?</string>
+    <string name="who_is_it_for">Who is it for?</string>
 </resources>
