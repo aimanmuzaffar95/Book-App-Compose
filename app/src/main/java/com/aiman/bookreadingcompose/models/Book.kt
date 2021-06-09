@@ -9,6 +9,5 @@ data class Book(
     val authorName: String,
     val bookImage: Int,
     val backgroundColor: String,
-    val aboutBook: String,
     val bookProgress: Float = 0f
 ): Parcelable

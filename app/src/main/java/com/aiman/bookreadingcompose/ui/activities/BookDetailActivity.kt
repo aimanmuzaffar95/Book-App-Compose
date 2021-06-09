@@ -11,6 +11,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
@@ -43,9 +47,11 @@ class BookDetailActivity : AppCompatActivity() {
 
         setContent {
             MaterialTheme {
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                ) {
                     TopSection()
                     BottomSection()
                 }
@@ -56,14 +62,15 @@ class BookDetailActivity : AppCompatActivity() {
     private fun changeStatusBarColor(color: String) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor =  android.graphics.Color.parseColor(color)
+        window.statusBarColor = android.graphics.Color.parseColor(color)
     }
 
     @Composable
-    fun TopSection () {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .background(color = getComposeColor(book.backgroundColor)),
+    fun TopSection() {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = getComposeColor(book.backgroundColor)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -73,13 +80,18 @@ class BookDetailActivity : AppCompatActivity() {
         }
     }
 
-    @Composable 
+    @Composable
     fun TopBar() {
         val iconSize = 50.dp
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(all = 8.dp),
-        horizontalArrangement = Arrangement.SpaceBetween) {
+
+        var isBookmark = remember { mutableStateOf(false) }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = null,
@@ -91,13 +103,17 @@ class BookDetailActivity : AppCompatActivity() {
             )
 
             Icon(
-                painter = painterResource(id = R.drawable.ic_bookmark),
+                painter =
+                if(isBookmark.value)
+                    painterResource(id = R.drawable.ic_bookmark_filled)
+                else
+                    painterResource(id = R.drawable.ic_bookmark),
                 contentDescription = null,
                 tint = Color.White,
                 modifier = Modifier
                     .size(iconSize)
                     .padding(vertical = 8.dp, horizontal = 6.dp)
-                    .clickable {}
+                    .clickable {isBookmark.value = !isBookmark.value}
             )
         }
     }
@@ -106,14 +122,16 @@ class BookDetailActivity : AppCompatActivity() {
     fun BookDetail() {
         Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Image(
                 painter = painterResource(id = book.bookImage),
                 contentDescription = null,
                 modifier = Modifier
                     .height(280.dp)
-                    .clip(RoundedCornerShape(12.dp)))
-            
+                    .clip(RoundedCornerShape(12.dp))
+            )
+
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
@@ -121,14 +139,16 @@ class BookDetailActivity : AppCompatActivity() {
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 22.sp,
-                fontFamily = robotoCondenseFamily)
+                fontFamily = robotoCondenseFamily
+            )
 
             Text(
                 text = "By ${book.authorName}",
                 color = Color.White,
                 fontWeight = Normal,
                 fontSize = 18.sp,
-                fontFamily = robotoCondenseFamily)
+                fontFamily = robotoCondenseFamily
+            )
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -140,8 +160,9 @@ class BookDetailActivity : AppCompatActivity() {
     }
 
     @Composable
-    fun DetailGrid () {
-        Row(modifier = Modifier.fillMaxWidth(),
+    fun DetailGrid() {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -150,14 +171,16 @@ class BookDetailActivity : AppCompatActivity() {
                     color = Color.White,
                     fontWeight = FontWeight.Light,
                     fontSize = 16.sp,
-                    fontFamily = robotoCondenseFamily)
+                    fontFamily = robotoCondenseFamily
+                )
 
                 Text(
                     text = "4.7",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
-                    fontFamily = robotoCondenseFamily)
+                    fontFamily = robotoCondenseFamily
+                )
             }
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -166,14 +189,16 @@ class BookDetailActivity : AppCompatActivity() {
                     color = Color.White,
                     fontWeight = FontWeight.Light,
                     fontSize = 16.sp,
-                    fontFamily = robotoCondenseFamily)
+                    fontFamily = robotoCondenseFamily
+                )
 
                 Text(
                     text = "155",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
-                    fontFamily = robotoCondenseFamily)
+                    fontFamily = robotoCondenseFamily
+                )
             }
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -182,14 +207,16 @@ class BookDetailActivity : AppCompatActivity() {
                     color = Color.White,
                     fontWeight = FontWeight.Light,
                     fontSize = 16.sp,
-                    fontFamily = robotoCondenseFamily)
+                    fontFamily = robotoCondenseFamily
+                )
 
                 Text(
                     text = "ENG",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
-                    fontFamily = robotoCondenseFamily)
+                    fontFamily = robotoCondenseFamily
+                )
             }
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -198,39 +225,45 @@ class BookDetailActivity : AppCompatActivity() {
                     color = Color.White,
                     fontWeight = FontWeight.Light,
                     fontSize = 16.sp,
-                    fontFamily = robotoCondenseFamily)
+                    fontFamily = robotoCondenseFamily
+                )
 
                 Text(
                     text = "02 Hrs",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
-                    fontFamily = robotoCondenseFamily)
+                    fontFamily = robotoCondenseFamily
+                )
             }
         }
     }
 
     @Composable
     fun ActionButtons() {
-        Row(modifier = Modifier
-            .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
 
-            ActionButton(text = getString(R.string.read_book), modifier =
+            ActionButton(
+                text = getString(R.string.read_book), modifier =
                 Modifier.background(
-                        shape = RoundedCornerShape(topStartPercent = 20, bottomStartPercent = 20),
-                        color = colorResource(id = R.color.action_button_background_color)
-                    ),
+                    shape = RoundedCornerShape(topStartPercent = 20, bottomStartPercent = 20),
+                    color = colorResource(id = R.color.action_button_background_color)
+                ),
                 R.drawable.ic_read_book
             )
 
             Spacer(modifier = Modifier.width(4.dp))
 
-            ActionButton(text = getString(R.string.listen_book), modifier =
+            ActionButton(
+                text = getString(R.string.listen_book), modifier =
                 Modifier.background(
-                        shape = RoundedCornerShape(topEndPercent = 20, bottomEndPercent = 20),
-                        color = colorResource(id = R.color.action_button_background_color)
-                    ),
+                    shape = RoundedCornerShape(topEndPercent = 20, bottomEndPercent = 20),
+                    color = colorResource(id = R.color.action_button_background_color)
+                ),
                 R.drawable.ic_listen_audio
             )
         }
@@ -267,36 +300,48 @@ class BookDetailActivity : AppCompatActivity() {
         val headingFontSize = 22.sp
         val contentFontSize = 18.sp
 
-        Column(modifier = Modifier.padding(12.dp)) {
-            Text(
-                getString(R.string.what_is_it_about),
-                color = Color.Black,
-                fontSize = headingFontSize,
-                fontFamily = robotoCondenseFamily,
-                fontWeight = SemiBold,
-            )
-            Text(
-                book.aboutBook,
-                color = Color.DarkGray,
-                fontSize = contentFontSize,
-                fontFamily = robotoCondenseFamily,
-                fontWeight = Normal,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                getString(R.string.who_is_it_for),
-                color = Color.Black,
-                fontSize = headingFontSize,
-                fontFamily = robotoCondenseFamily,
-                fontWeight = SemiBold,
-            )
-            Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus neque et libero tempus efficitur. Cras quam leo, egestas eu elit sit amet, elementum ultricies.",
-                color = Color.DarkGray,
-                fontSize = contentFontSize,
-                fontFamily = robotoCondenseFamily,
-                fontWeight = Normal,
-            )
+        Box(
+            modifier = Modifier
+                .wrapContentWidth()
+                .background(color = colorResource(id = R.color.background_dark))
+        ) {
+
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+            ) {
+                Text(
+                    getString(R.string.what_is_it_about),
+                    color = Color.White,
+                    fontSize = headingFontSize,
+                    fontFamily = robotoCondenseFamily,
+                    fontWeight = SemiBold,
+                )
+                Text(
+                    stringResource(id = R.string.about_book),
+                    color = Color.White,
+                    fontSize = contentFontSize,
+                    fontFamily = robotoCondenseFamily,
+                    fontWeight = Normal,
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    getString(R.string.who_is_it_for),
+                    color = Color.White,
+                    fontSize = headingFontSize,
+                    fontFamily = robotoCondenseFamily,
+                    fontWeight = SemiBold,
+                )
+                Text(
+                    stringResource(id = R.string.lorem_ipsum),
+                    color = Color.White,
+                    fontSize = contentFontSize,
+                    fontFamily = robotoCondenseFamily,
+                    fontWeight = Normal,
+                )
+            }
         }
+
+
     }
 }
