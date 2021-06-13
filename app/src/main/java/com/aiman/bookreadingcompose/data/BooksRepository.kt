@@ -7,11 +7,14 @@ import com.aiman.bookreadingcompose.models.BookGenre
 
 class BooksRepository {
     companion object {
+//        val favourites = arrayListOf<Book>()
+        val favourites = getMyBooks()
+
         fun getMyBooks(): ArrayList<Book> {
             return arrayListOf(
                 Book("No place like here", "Christina June", R.drawable.book_no_place_like_here, "#A66BA2", bookProgress = 10f),
                 Book("To Kill a Mockingbird", "Harper Lee", R.drawable.book_to_kill_a_mocking_bird, "#57503D",  bookProgress = 5f),
-                Book("The Book Thief", "Markus Zusak", R.drawable.book_the_book_theif, "#83631F",  bookProgress = 16f),
+                Book("The Book Thief", "Markus Zusak", R.drawable.book_the_book_thief, "#83631F",  bookProgress = 16f),
             )
         }
 

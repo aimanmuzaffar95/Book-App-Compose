@@ -13,23 +13,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
 import com.aiman.bookreadingcompose.R
+import com.aiman.bookreadingcompose.data.BooksRepository
 import com.aiman.bookreadingcompose.models.Book
 import com.aiman.bookreadingcompose.theme.robotoCondenseFamily
 import com.aiman.bookreadingcompose.ui.tabs.key_book
@@ -84,7 +81,7 @@ class BookDetailActivity : AppCompatActivity() {
     fun TopBar() {
         val iconSize = 50.dp
 
-        var isBookmark = remember { mutableStateOf(false) }
+        val isBookmarked = remember { mutableStateOf(false) }
 
         Row(
             modifier = Modifier
@@ -92,6 +89,7 @@ class BookDetailActivity : AppCompatActivity() {
                 .padding(all = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = null,
@@ -104,16 +102,22 @@ class BookDetailActivity : AppCompatActivity() {
 
             Icon(
                 painter =
-                if(isBookmark.value)
-                    painterResource(id = R.drawable.ic_bookmark_filled)
-                else
-                    painterResource(id = R.drawable.ic_bookmark),
+                    if(isBookmarked.value)
+                        painterResource(id = R.drawable.ic_bookmark_filled)
+                    else
+                        painterResource(id = R.drawable.ic_bookmark),
                 contentDescription = null,
                 tint = Color.White,
                 modifier = Modifier
                     .size(iconSize)
                     .padding(vertical = 8.dp, horizontal = 6.dp)
-                    .clickable {isBookmark.value = !isBookmark.value}
+                    .clickable {
+                        isBookmarked.value = !isBookmarked.value
+                        if(isBookmarked.value)
+                            BooksRepository.favourites.add(book)
+                        else
+                            BooksRepository.favourites.remove(book)
+                    }
             )
         }
     }
@@ -277,11 +281,11 @@ class BookDetailActivity : AppCompatActivity() {
         Row(
             modifier = modifier
                 .height(buttonHeight)
-                .width(buttonWidth),
+                .width(buttonWidth)
+                .clickable {},
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Icon(
                 painter = painterResource(id = icon),
                 contentDescription = null,

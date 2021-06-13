@@ -15,6 +15,7 @@ import androidx.navigation.compose.*
 import com.aiman.bookreadingcompose.R
 import com.aiman.bookreadingcompose.ui.tabs.*
 
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                 BrowseTab()
             }
             composable(BottomNavigationScreens.Favourites.route) {
-                FavouritesTab()
+                FavouritesTab(this@MainActivity)
             }
             composable(BottomNavigationScreens.Cart.route) {
                 CartTab()
