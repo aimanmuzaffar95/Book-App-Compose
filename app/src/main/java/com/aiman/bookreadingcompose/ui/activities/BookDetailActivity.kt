@@ -30,6 +30,7 @@ import com.aiman.bookreadingcompose.data.BooksRepository
 import com.aiman.bookreadingcompose.models.Book
 import com.aiman.bookreadingcompose.theme.robotoCondenseFamily
 import com.aiman.bookreadingcompose.ui.tabs.key_book
+import com.aiman.bookreadingcompose.ui.tabs.key_is_bookmarked
 import com.aiman.bookreadingcompose.utils.getComposeColor
 
 class BookDetailActivity : AppCompatActivity() {
@@ -81,7 +82,9 @@ class BookDetailActivity : AppCompatActivity() {
     fun TopBar() {
         val iconSize = 50.dp
 
-        val isBookmarked = remember { mutableStateOf(false) }
+        val isBookmarked = remember { mutableStateOf(
+            intent.getBooleanExtra(key_is_bookmarked, false)
+        ) }
 
         Row(
             modifier = Modifier

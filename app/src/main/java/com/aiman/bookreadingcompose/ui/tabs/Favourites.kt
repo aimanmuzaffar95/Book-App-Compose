@@ -2,8 +2,10 @@ package com.aiman.bookreadingcompose.ui.tabs
 
 import android.content.Context
 import android.widget.Space
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
@@ -52,7 +54,12 @@ fun FavouritesTab(context: Context) {
 
 @Composable
 fun FavouriteItem(context: Context, book: Book) {
-    Row {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .clickable {
+            openBookDetailsActivity(context, book, true)
+        }
+    ) {
         Image(
             painter = painterResource(id = book.bookImage),
             contentDescription = null,

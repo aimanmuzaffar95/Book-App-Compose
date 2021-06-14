@@ -27,6 +27,7 @@ import com.aiman.bookreadingcompose.theme.robotoCondenseFamily
 import com.aiman.bookreadingcompose.ui.activities.BookDetailActivity
 
 const val key_book = "key_book"
+const val key_is_bookmarked = "key_is_bookmarked"
 
 @Composable
 fun HomeTab(context: Context) {
@@ -284,9 +285,10 @@ fun BestSellerItem(book: Book, context: Context) {
     }
 }
 
-fun openBookDetailsActivity(context: Context, book: Book) {
+fun openBookDetailsActivity(context: Context, book: Book, isBookmarked: Boolean = false) {
     Intent(context, BookDetailActivity::class.java).run {
-        this.putExtra(key_book, book)
+        putExtra(key_book, book)
+        putExtra(key_is_bookmarked, isBookmarked)
         context.startActivity(this)
     }
 }
