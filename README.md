@@ -6,7 +6,7 @@ An example project to demonstrating a Book App's UI built in Jetpack Compose (be
 
 # 📃 License
 
-    Copyright 2018 Aiman Muzafar
+    Copyright 2021 Aiman Muzafar
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
